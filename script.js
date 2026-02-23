@@ -85,6 +85,13 @@ document.querySelector(".main").addEventListener("click", function (event) {
       interviewList.push(cardInfo);
     }
 
+    rejectedList = rejectedList.filter(
+      (item) => item.cardTitle !== cardInfo.cardTitle,
+    );
+    if (currentStatus === "rejected-btn") {
+      renderRejected();
+    }
+
     renderInterview();
     calculate();
   }else if (event.target.classList.contains("btn-card-rejected")) {
@@ -118,6 +125,14 @@ document.querySelector(".main").addEventListener("click", function (event) {
 
     if (!existing) {
       rejectedList.push(cardInfo);
+    }
+
+    interviewList = interviewList.filter(
+      (item) => item.cardTitle !== cardInfo.cardTitle,
+    );
+
+    if (currentStatus === "interview-btn") {
+      renderInterview();
     }
     calculate();
     renderRejected();
