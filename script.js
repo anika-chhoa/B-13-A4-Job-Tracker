@@ -47,7 +47,7 @@ function toggleBtn(id) {
   } else if (id === "rejected-btn") {
     filteredSection.classList.remove("hidden");
     cardContainer.classList.add("hidden");
-    renderRejected();
+    
   }
 }
 
@@ -94,59 +94,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
     }
 
     calculate();
-  } else if (event.target.classList.contains("btn-card-rejected")) {
-    const parentNode = event.target.parentNode.parentNode.parentNode;
-
-    const cardTitle = parentNode.querySelector(".card-title").innerText;
-    const cardSubTitle = parentNode.querySelector(".card-sub-title").innerText;
-    const jobDescription =
-      parentNode.querySelector(".job-description").innerText;
-    const btnStatus = parentNode.querySelector(".btn-status");
-    const jobDetails = parentNode.querySelector(".job-details").innerText;
-    const btnCardInterview = parentNode.querySelector(".btn-card-interview");
-    const btnCardRejected = parentNode.querySelector(".btn-card-rejected");
-    const deleteBtn = parentNode.querySelector(".delete-btn");
-
-    btnStatus.innerText = "REJECTED";
-    btnStatus.classList.remove("btn-primary", "btn-soft", "text-black");
-    btnStatus.classList.add("btn-outline", "btn-error");
-
-    let cardInfo = {
-      cardTitle,
-      cardSubTitle,
-      jobDescription,
-      btnStatus: "REJECTED",
-      jobDetails,
-    };
-
-    let existing = rejectedList.find(
-      (item) => item.cardTitle === cardInfo.cardTitle,
-    );
-
-    if (!existing) {
-      rejectedList.push(cardInfo);
-    }
-
-    interviewList = interviewList.filter(
-      (item) => item.cardTitle !== cardInfo.cardTitle,
-    );
-
-    if (currentStatus === "interview-btn") {
-      renderInterview();
-    }
-
-    calculate();
-  } else if (event.target.parentNode.classList.contains("delete-btn")) {
-    let cardBox = event.target.parentNode.parentNode.parentNode;
-    let cardTitle = cardBox.querySelector(".card-title").innerText;
-    interviewList = interviewList.filter(
-      (item) => item.cardTitle !== cardTitle,
-    );
-    rejectedList = rejectedList.filter((item) => item.cardTitle !== cardTitle);
-    cardBox.remove();
-
-    calculate();
-  }
+  } 
 });
 
 function renderInterview() {
@@ -215,68 +163,4 @@ function renderInterview() {
   }
 }
 
-function renderRejected() {
-  filteredSection.innerHTML = "";
 
-  for (let rejected of rejectedList) {
-    let statusClass = "";
-
-    if (rejected.btnStatus === "REJECTED") {
-      statusClass = "btn-outline btn-error";
-    } else {
-      statusClass = "btn-primary btn-soft text-black";
-    }
-
-    let newDiv = document.createElement("div");
-    newDiv.classList.add(
-      "w-full",
-      "bg-white",
-      "p-6",
-      "border-2",
-      "border-[#f1f2f4FF]",
-      "rounded-lg",
-      "flex",
-      "justify-between",
-    );
-
-    newDiv.innerHTML = `
-    <div class="card-left space-y-5">
-            <div class="card-title-container">
-              <h1 class="card-title text-lg font-[600] text-[#002c5cFF]">
-                ${rejected.cardTitle}
-              </h1>
-              <h3 class="card-sub-title text-gray-500">
-                ${rejected.cardSubTitle}
-              </h3>
-            </div>
-            <p class="job-description text-sm text-gray-500">
-              ${rejected.jobDescription}
-            </p>
-            <div class="job-status">
-              <button
-                class="btn-status text-sm font-medium btn ${statusClass}"
-              >
-                ${rejected.btnStatus}
-              </button>
-              <p class="job-details text-sm font-normal text-gray-500 mt-2">
-                ${rejected.jobDetails}
-              </p>
-            </div>
-            <div class="card-btn-container space-x-2">
-              <button class="btn-card-interview btn btn-outline btn-success">
-                INTERVIEW
-              </button>
-              <button class="btn-card-rejected btn btn-outline btn-error">
-                REJECTED
-              </button>
-            </div>
-          </div>
-          <div class="card-right">
-            <button class="delete-btn btn btn-circle bg-white">
-              <i class="fa-regular fa-trash-can"></i>
-            </button>
-          </div>
-    `;
-    filteredSection.appendChild(newDiv);
-  }
-}
