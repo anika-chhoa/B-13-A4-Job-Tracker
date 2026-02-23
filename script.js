@@ -5,6 +5,7 @@ const jobCount = document.getElementById("job-count");
 
 const cardContainer = document.querySelector(".card-container");
 const filteredSection = document.querySelector(".filteredSection");
+const noJobSection = document.querySelector(".no-job-section");
 
 let interviewList = [];
 let rejectedList = [];
@@ -92,6 +93,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderRejected();
     }
     calculate();
+    
   } else if (event.target.classList.contains("btn-card-rejected")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
 
@@ -219,6 +221,7 @@ function renderInterview() {
           </div>
     `;
     filteredSection.appendChild(newDiv);
+    
   }
 }
 function renderRejected() {
