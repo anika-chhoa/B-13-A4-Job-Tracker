@@ -65,12 +65,20 @@
     </header>
     <hr class="max-w-[80%] mx-auto border-gray-300 border-t-2 pb-8" />
     <main class="main max-w-[80%] mx-auto">
-      <div class="title-container flex justify-between mb-6">
+        <section class="main-job">
+          <div class="job-container">
+        <div class="title-container flex justify-between mb-6">
         <h1 class="title text-xl font-[600] text-[#002c5cFF]">
           Available Jobs
         </h1>
-        <p class="text-gray-600 font-medium">
-          <span id="job-count">0</span> jobs
+        <p class="total-job-count text-gray-600 font-medium">
+          <span class="job-count">0</span> jobs
+        </p>
+        <p class="filtered-job-count1 hidden">
+          <span class="filter-count1">0</span> of <span class="job-counts">0</span> jobs
+        </p>
+        <p class="filtered-job-count2 hidden">
+          <span class="filter-count2">0</span> of <span class="job-counts2">0</span> jobs
         </p>
       </div>
       <div class="btn-container space-x-2 mb-4">
@@ -100,7 +108,7 @@
           <p class="no-job-text bg-white text-gray-500 font-medium">Check back soon for new job opportunities</p>
         </div>
       </section>
-      <section class="filteredSection space-y-4 hidden">
+      <section class="filteredSection space-y-4">
           <div></div>
         </section>
       <section class="card-container space-y-4">
@@ -430,6 +438,9 @@
           </div>
         </div>
       </section>
+      </div>
+        </section>
+      
     </main>
     <script src="script.js"></script>
   </body>
