@@ -143,6 +143,16 @@ document.querySelector(".main").addEventListener("click", function (event) {
     cardBox.remove();
 
     calculate();
+  } else if (event.target.classList.contains("delete-btn")) {
+    let cardBox = event.target.parentNode.parentNode;
+    let cardTitle = cardBox.querySelector(".card-title").innerText;
+    interviewList = interviewList.filter(
+      (item) => item.cardTitle !== cardTitle,
+    );
+    rejectedList = rejectedList.filter((item) => item.cardTitle !== cardTitle);
+    cardBox.remove();
+
+    calculate();
   }
 });
 
