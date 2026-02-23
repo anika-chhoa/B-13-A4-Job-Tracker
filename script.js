@@ -92,7 +92,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderRejected();
     }
     calculate();
-  }else if (event.target.classList.contains("btn-card-rejected")) {
+  } else if (event.target.classList.contains("btn-card-rejected")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
 
     const cardTitle = parentNode.querySelector(".card-title").innerText;
@@ -133,7 +133,17 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderInterview();
     }
     calculate();
-  } 
+  } else if (event.target.classList.contains("delete-icon")) {
+    let cardBox = event.target.parentNode.parentNode.parentNode;
+    let cardTitle = cardBox.querySelector(".card-title").innerText;
+    interviewList = interviewList.filter(
+      (item) => item.cardTitle !== cardTitle,
+    );
+    rejectedList = rejectedList.filter((item) => item.cardTitle !== cardTitle);
+    cardBox.remove();
+
+    calculate();
+  }
 });
 
 function renderInterview() {
@@ -194,7 +204,7 @@ function renderInterview() {
           </div>
           <div class="card-right">
             <button class="delete-btn btn btn-circle bg-white">
-              <i class="fa-regular fa-trash-can"></i>
+              <i class="delete-icon fa-regular fa-trash-can"></i>
             </button>
           </div>
     `;
@@ -259,12 +269,10 @@ function renderRejected() {
           </div>
           <div class="card-right">
             <button class="delete-btn btn btn-circle bg-white">
-              <i class="fa-regular fa-trash-can"></i>
+              <i class="delete-icon fa-regular fa-trash-can"></i>
             </button>
           </div>
     `;
     filteredSection.appendChild(newDiv);
   }
 }
-
-
