@@ -19,6 +19,50 @@ function calculate() {
 }
 calculate();
 
+// function updateNoJob() {
+//   if (currentStatus === "interview-btn") {
+//     if (interviewList.length === 0) {
+//       noJobSection.classList.remove("hidden");
+//     } else {
+//       noJobSection.classList.add("hidden");
+//     }
+//   } else if (currentStatus === "rejected-btn") {
+//     if (rejectedList.length === 0) {
+//       noJobSection.classList.remove("hidden");
+//     } else {
+//       noJobSection.classList.add("hidden");
+//     }
+//   } else if (currentStatus === "all-btn") {
+//     if (cardContainer.children.length === 0) {
+//       noJobSection.classList.remove("hidden");
+//     } else {
+//       noJobSection.classList.add("hidden");
+//     }
+//   }
+// }
+
+function updateNoJob() {
+  if (currentStatus === "interview-btn") {
+    if (interviewList.length === 0) {
+      noJobSection.classList.remove("hidden");
+    } else {
+      noJobSection.classList.add("hidden");
+    }
+  } else if (currentStatus === "rejected-btn") {
+    if (rejectedList.length === 0) {
+      noJobSection.classList.remove("hidden");
+    } else {
+      noJobSection.classList.add("hidden");
+    }
+  } else if (currentStatus === "all-btn") {
+    if (cardContainer.children.length === 0) {
+      noJobSection.classList.remove("hidden");
+    } else {
+      noJobSection.classList.add("hidden");
+    }
+  }
+}
+
 const allBtn = document.getElementById("all-btn");
 const interviewBtn = document.getElementById("interview-btn");
 const rejectedBtn = document.getElementById("rejected-btn");
@@ -50,6 +94,7 @@ function toggleBtn(id) {
     cardContainer.classList.add("hidden");
     renderRejected();
   }
+  updateNoJob();
 }
 
 document.querySelector(".main").addEventListener("click", function (event) {
@@ -93,7 +138,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderRejected();
     }
     calculate();
-    
+    updateNoJob();
   } else if (event.target.classList.contains("btn-card-rejected")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
 
@@ -135,6 +180,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderInterview();
     }
     calculate();
+    updateNoJob();
   } else if (event.target.classList.contains("delete-icon")) {
     let cardBox = event.target.parentNode.parentNode.parentNode;
     let cardTitle = cardBox.querySelector(".card-title").innerText;
@@ -145,6 +191,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
     cardBox.remove();
 
     calculate();
+    updateNoJob();
   } else if (event.target.classList.contains("delete-btn")) {
     let cardBox = event.target.parentNode.parentNode;
     let cardTitle = cardBox.querySelector(".card-title").innerText;
@@ -155,6 +202,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
     cardBox.remove();
 
     calculate();
+    updateNoJob();
   }
 });
 
@@ -221,7 +269,6 @@ function renderInterview() {
           </div>
     `;
     filteredSection.appendChild(newDiv);
-    
   }
 }
 function renderRejected() {
