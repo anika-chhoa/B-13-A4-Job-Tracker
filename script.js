@@ -43,11 +43,11 @@ function toggleBtn(id) {
   } else if (id === "interview-btn") {
     filteredSection.classList.remove("hidden");
     cardContainer.classList.add("hidden");
-    
+    renderInterview();
   } else if (id === "rejected-btn") {
     filteredSection.classList.remove("hidden");
     cardContainer.classList.add("hidden");
-    
+    renderRejected();
   }
 }
 
@@ -91,8 +91,6 @@ document.querySelector(".main").addEventListener("click", function (event) {
     if (currentStatus === "rejected-btn") {
       renderRejected();
     }
-
-    renderInterview();
     calculate();
   }else if (event.target.classList.contains("btn-card-rejected")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
@@ -135,7 +133,6 @@ document.querySelector(".main").addEventListener("click", function (event) {
       renderInterview();
     }
     calculate();
-    renderRejected();
   } 
 });
 
