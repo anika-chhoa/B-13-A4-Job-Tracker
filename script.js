@@ -10,9 +10,6 @@ const filterCount2 = document.querySelector(".filter-count2");
 const jobCounts = document.querySelector(".job-counts");
 const jobCounts2 = document.querySelector(".job-counts2");
 
-
-
-
 const cardContainer = document.querySelector(".card-container");
 const filteredSection = document.querySelector(".filteredSection");
 const noJobSection = document.querySelector(".no-job-section");
@@ -27,6 +24,11 @@ function calculate() {
   rejectedCount.innerText = rejectedList.length;
   jobCount.innerText = cardContainer.children.length;
   jobCounts.innerText = cardContainer.children.length;
+  if (cardContainer.children.length === 0) {
+    noJobSection.classList.remove("hidden");
+  } else {
+    noJobSection.classList.add("hidden");
+  }
 }
 calculate();
 
@@ -52,11 +54,11 @@ function updateNoJob() {
   }
 }
 
-function updateFilterJobCount (){
-    filterCount1.innerText=interviewCount.innerText;
-    filterCount2.innerText=rejectedCount.innerText;
-    jobCounts.innerText = cardContainer.children.length;
-    jobCounts2.innerText = cardContainer.children.length;
+function updateFilterJobCount() {
+  filterCount1.innerText = interviewCount.innerText;
+  filterCount2.innerText = rejectedCount.innerText;
+  jobCounts.innerText = cardContainer.children.length;
+  jobCounts2.innerText = cardContainer.children.length;
 }
 
 const allBtn = document.getElementById("all-btn");
@@ -92,8 +94,6 @@ function toggleBtn(id) {
     renderInterview();
     totalJobCount.classList.add("hidden");
     filteredSection.classList.remove("hidden");
-    
-
   } else if (id === "rejected-btn") {
     filteredSection.classList.remove("hidden");
     cardContainer.classList.add("hidden");
@@ -101,17 +101,15 @@ function toggleBtn(id) {
     totalJobCount.classList.add("hidden");
     filteredJobCount2.classList.remove("hidden");
     filteredJobCount1.classList.add("hidden");
-    
-
   }
   updateNoJob();
-  updateFilterJobCount ();
+  updateFilterJobCount();
 }
 
 document.querySelector(".main").addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-card-interview")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
-    console.log(parentNode)
+    console.log(parentNode);
 
     const cardTitle = parentNode.querySelector(".card-title").innerText;
     const cardSubTitle = parentNode.querySelector(".card-sub-title").innerText;
@@ -119,7 +117,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       parentNode.querySelector(".job-description").innerText;
     const btnStatus = parentNode.querySelector(".btn-status");
     const jobDetails = parentNode.querySelector(".job-details").innerText;
-    const jobCount=parentNode.querySelector(".job-count")
+    const jobCount = parentNode.querySelector(".job-count");
     const deleteBtn = parentNode.querySelector(".delete-btn");
 
     btnStatus.innerText = "INTERVIEW";
@@ -132,7 +130,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
       jobDescription,
       btnStatus: "INTERVIEW",
       jobDetails,
-      jobCount
+      jobCount,
     };
 
     let existing = interviewList.find(
@@ -151,7 +149,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
     }
     calculate();
     updateNoJob();
-    updateFilterJobCount ()
+    updateFilterJobCount();
   } else if (event.target.classList.contains("btn-card-rejected")) {
     const parentNode = event.target.parentNode.parentNode.parentNode;
 
@@ -194,7 +192,7 @@ document.querySelector(".main").addEventListener("click", function (event) {
     }
     calculate();
     updateNoJob();
-    updateFilterJobCount ();
+    updateFilterJobCount();
   } else if (event.target.classList.contains("delete-icon")) {
     let cardBox = event.target.parentNode.parentNode.parentNode;
     let cardTitle = cardBox.querySelector(".card-title").innerText;
@@ -216,14 +214,12 @@ document.querySelector(".main").addEventListener("click", function (event) {
     cardBox.remove();
 
     calculate();
-    updateFilterJobCount ();
+    updateFilterJobCount();
     updateNoJob();
   }
 });
 
 function renderInterview() {
-
-
   filteredSection.innerHTML = "";
 
   for (let interview of interviewList) {
@@ -353,4 +349,3 @@ function renderRejected() {
     filteredSection.appendChild(newDiv);
   }
 }
-
